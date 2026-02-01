@@ -34,27 +34,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Close mobile menu when clicking a link
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileNav.classList.remove('open');
-            const icon = mobileBtn.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+    // Smooth scrolling without updating URL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            if (!targetId) return;
+
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                // Close mobile menu if open
+                if (mobileNav.classList.contains('open')) {
+                    mobileNav.classList.remove('open');
+                    const icon = mobileBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+
+                // Scroll to section
+                const headerOffset = 80;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
         });
     });
 
     // Active Navigation Link on Scroll (ScrollSpy)
     const sections = document.querySelectorAll('section');
-    
+
     function highlightNavLink() {
         let scrollY = window.scrollY;
-        
+
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
             const sectionTop = current.offsetTop - 150; // Offset for header
             const sectionId = current.getAttribute('id');
-            
+
             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
                 navLinks.forEach(link => {
                     link.classList.remove('active');
