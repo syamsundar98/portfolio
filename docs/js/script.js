@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const header = document.getElementById('header');
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToTop = document.querySelector('.back-to-top');
+    const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const mobileNav = document.querySelector('.mobile-nav');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -21,17 +24,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
+        scrollProgress.style.width = scrolled + '%';
+    });
+
+    // Back to Top Visibility
+    const toggleBackToTop = () => {
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    };
+
+    window.addEventListener('scroll', toggleBackToTop);
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll Down Indicator - scroll to next section on click
+    const scrollDown = document.querySelector('.scroll-down');
+
+    scrollDown.addEventListener('click', () => {
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+        const currentIndex = sections.findIndex(section => window.scrollY < section.offsetTop + section.offsetHeight);
+        const nextSection = sections[currentIndex + 1];
+
+        if (nextSection) {
+            const headerOffset = 80;
+            const offsetPosition = nextSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    });
+
+    // Show Scroll Down Indicator only on Home section
+    const toggleScrollDown = () => {
+        const hero = document.getElementById('home');
+        if (window.scrollY < hero.offsetHeight - 100) {
+            scrollDown.classList.add('visible');
+        } else {
+            scrollDown.classList.remove('visible');
+        }
+    };
+
+    window.addEventListener('scroll', toggleScrollDown);
+    toggleScrollDown();
+
     // Mobile Menu Toggle
     mobileBtn.addEventListener('click', () => {
-        mobileNav.classList.toggle('open');
+        const isOpen = mobileNav.classList.toggle('open');
+        mobileNavBackdrop.classList.toggle('open', isOpen);
+        mobileBtn.setAttribute('aria-expanded', isOpen);
         const icon = mobileBtn.querySelector('i');
-        if (mobileNav.classList.contains('open')) {
+        if (isOpen) {
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-times');
         } else {
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
         }
+    });
+
+    // Close Mobile Menu on Backdrop Click
+    mobileNavBackdrop.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        mobileNavBackdrop.classList.remove('open');
+        mobileBtn.setAttribute('aria-expanded', 'false');
+        const icon = mobileBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
     });
 
     // Smooth scrolling without updating URL
@@ -46,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Close mobile menu if open
                 if (mobileNav.classList.contains('open')) {
                     mobileNav.classList.remove('open');
+                    mobileNavBackdrop.classList.remove('open');
+                    mobileBtn.setAttribute('aria-expanded', 'false');
                     const icon = mobileBtn.querySelector('i');
                     icon.classList.remove('fa-times');
                     icon.classList.add('fa-bars');

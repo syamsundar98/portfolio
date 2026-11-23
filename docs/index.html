@@ -23,12 +23,15 @@
 
 <body>
 
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
     <!-- Header -->
     <header id="header">
         <div class="container">
             <nav>
                 <div class="logo">
-                    <a href="#">Syam<span>.</span></a>
+                    <a href="#">Syam Sundar</a>
                 </div>
 
                 <ul class="nav-links">
@@ -39,7 +42,7 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
-                <div class="mobile-menu-btn">
+                <div class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i class="fas fa-bars"></i>
                 </div>
             </nav>
@@ -47,6 +50,7 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
     <div class="mobile-nav">
         <ul>
             <li><a href="#home" class="nav-link">Home</a></li>
@@ -65,10 +69,10 @@
                     <h2>Senior Frontend Developer</h2>
                     <h1>Hi, I'm <span class="text-gradient">Syam Sundar</span></h1>
                     <p>
-                        I have over 5+ years of experience in designing, developing, and maintaining front-end
-                        web applications using JavaScript, React.js, and Angular. I possess a strong understanding of
-                        web
-                        accessibility standards, cross-browser compatibility, and performance optimization.
+                        Frontend Developer with 5+ years of experience building modern, responsive, and high-performance
+                        web applications using JavaScript, React.js, Angular, and Next.js. Passionate about creating
+                        intuitive user experiences, optimizing web performance, ensuring accessibility, and managing
+                        end-to-end website deployment and hosting.
                     </p>
                     <div class="hero-buttons">
                         <a href="#contact" class="btn btn-primary">Get In Touch</a>
@@ -83,6 +87,10 @@
                 </div>
             </div>
         </div>
+
+        <div class="scroll-down" data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -96,25 +104,18 @@
             <div class="about-grid">
                 <div class="about-text" data-aos="fade-right">
                     <p>
-                        Hello! My name is Syam Sundar S, and I enjoy creating interactive web applications. My interest
-                        in
-                        web development started back in 2019 when I was doing my internship program at Kadayanallur,
-                        where I
-                        learned the basics of HTML, CSS, and JavaScript. In my final year, I worked on a project using
-                        WordPress to create an online organic shop, which taught me in-depth knowledge about HTML, CSS,
-                        and
-                        the basics of web application flow.
+                        I'm Syam Sundar S, a Front-End Developer with 5+ years of experience creating interactive,
+                        responsive, and user-friendly web applications.
                     </p>
                     <p>
-                        I began my career at CISAI/Innspark as a graphic designer, creating brochures and wireframes,
-                        before transitioning to front-end development after three months. Now a Senior Front-End
-                        Developer, I have
-                        built and delivered numerous projects, including vehicle tracking systems, news portals, and
-                        health and
-                        cybersecurity solutions. With hands-on experience in scalable React applications, SEO
-                        optimization, and
-                        XML configuration, my current focus is on designing and developing cybersecurity projects at
-                        CISAI.
+                        With a background in graphic design and frontend development, I enjoy combining creativity with
+                        technology to build engaging digital experiences. I work with modern web technologies like
+                        JavaScript, React.js, Angular, and Next.js, with a focus on clean code, performance,
+                        accessibility, and intuitive user interfaces.
+                    </p>
+                    <p>
+                        Beyond coding, I enjoy exploring creative ideas, experimenting with modern design trends, and
+                        finding innovative ways to solve problems.
                     </p>
                 </div>
 
@@ -122,43 +123,43 @@
                     <h3>Core Technologies</h3>
 
                     <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Javascript</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" style="width: 100%"></div>
-                        </div>
+                        <i class="fab fa-angular"></i>
+                        <span>Angular</span>
                     </div>
 
                     <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Jquery</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" style="width: 100%"></div>
-                        </div>
+                        <i class="fab fa-react"></i>
+                        <span>Reactjs</span>
                     </div>
 
                     <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Angular</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" style="width: 100%"></div>
-                        </div>
+                        <i class="fas fa-code"></i>
+                        <span>Nextjs</span>
                     </div>
 
                     <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Reactjs</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-bar" style="width: 100%"></div>
-                        </div>
+                        <i class="fab fa-js"></i>
+                        <span>Javascript</span>
+                    </div>
+
+                    <div class="skill-item">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML</span>
+                    </div>
+
+                    <div class="skill-item">
+                        <i class="fab fa-css3"></i>
+                        <span>CSS</span>
+                    </div>
+
+                    <div class="skill-item">
+                        <i class="fab fa-node"></i>
+                        <span>Nodejs</span>
+                    </div>
+
+                    <div class="skill-item">
+                        <i class="fas fa-code"></i>
+                        <span>Jquery</span>
                     </div>
                 </div>
             </div>
@@ -184,14 +185,17 @@
                             style="color: var(--primary-color); font-size: 0.9rem; margin-bottom: 0.5rem; display: inline-block;">
                             Kollam - Kerala <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
                         </a>
+                        <p style="margin-bottom: 0.5rem;">
+                            Senior Front-End Developer with over 5 years of experience building dynamic, scalable web
+                            applications using JavaScript, React.js, and Angular. Experienced in developing high-traffic
+                            projects, including news portals, vehicle tracking systems, AI initiatives, and
+                            cybersecurity solutions, with a focus on seamless user experiences and optimal performance.
+                        </p>
+
                         <p>
-                            Experienced Senior Front-End Developer with over five years of expertise in building dynamic
-                            web applications using JavaScript, React.js, and Angular. Led the development of
-                            high-traffic projects, including news portals, vehicle tracking systems, AI initiatives, and
-                            cybersecurity solutions, ensuring seamless user experiences and optimal performance.
-                            Proficient in micro-front-end architecture, RESTful APIs, CI pipelines, SEO optimization,
-                            and responsive design. Played a key role in mentoring junior developers, conducting code
-                            reviews, and fostering a collaborative environment.
+                            Proficient in micro-frontend architecture, RESTful APIs, CI pipelines, SEO optimization, and
+                            responsive design. Experienced in mentoring junior developers, conducting code reviews, and
+                            fostering a collaborative development environment.
                         </p>
                     </div>
                 </div>
@@ -406,13 +410,18 @@
         </div>
     </section>
 
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/syamswan" target="_blank" class="social-icon"><i
+                <a href="https://github.com/syamsundar98" target="_blank" class="social-icon"><i
                         class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/syam-sundar-828a0b232" target="_blank" class="social-icon"><i
+                <a href="https://www.linkedin.com/in/syam-sundar-s-developer" target="_blank" class="social-icon"><i
                         class="fab fa-linkedin-in"></i></a>
 
             </div>
