@@ -158,4 +158,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', highlightNavLink);
+
+    // Featured Work Tabs (fixed tag list)
+    const workTabs = document.getElementById('workTabs');
+    const projectCards = document.querySelectorAll('.projects-grid .project-card');
+
+    if (workTabs && projectCards.length) {
+        const normalize = (value) => value
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .replace(/\s*\/\s*/g, '/');
+
+        const workTabConfig = [
+            { label: 'All', key: 'all', tags: [] },
+            { label: 'Angular', key: 'angular', tags: ['angular', 'angular 5'] },
+            { label: 'JavaScript', key: 'javascript', tags: ['javascript'] },
+            { label: 'jQuery', key: 'jquery', tags: ['jquery'] },
+            { label: 'REST API', key: 'rest-api', tags: ['rest api'] },
+            { label: 'AJAX', key: 'ajax', tags: ['ajax'] },
+            { label: 'OpenStreetMap', key: 'openstreetmap', tags: ['openstreet maps', 'openstreetmap'] },
+            { label: 'Tailwind CSS', key: 'tailwind-css', tags: ['tailwind css'] }
+        ];
+
+        const tagsByKey = new Map(
+            workTabConfig.map(tab => [tab.key, new Set(tab.tags)])
+        );
+
+        const createTab = (label, filterKey, isActive = false) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'work-tab' + (isActive ? ' active' : '');
+            button.textContent = label;
+            button.dataset.filter = filterKey;
+            button.setAttribute('role', 'tab');
+            button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            button.tabIndex = isActive ? 0 : -1;
+            return button;
+        };
+
+        workTabConfig.forEach((tab, index) => {
+            workTabs.appendChild(createTab(tab.label, tab.key, index === 0));
+        });
+
+        if (window.AOS) AOS.refresh();
+
+        const applyFilter = (filterKey) => {
+            const allowedTags = tagsByKey.get(filterKey);
+
+            projectCards.forEach(card => {
+                const matches = filterKey === 'all' ||
+                    Array.from(card.querySelectorAll('.tech-tag'))
+                        .some(tag => allowedTags.has(normalize(tag.textContent)));
+                card.classList.toggle('is-hidden', !matches);
+            });
+
+            if (window.AOS) AOS.refresh();
+        };
+
+        const activateTab = (tab) => {
+            workTabs.querySelectorAll('.work-tab').forEach(btn => {
+                const isActive = btn === tab;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                btn.tabIndex = isActive ? 0 : -1;
+            });
+            applyFilter(tab.dataset.filter);
+        };
+
+        workTabs.addEventListener('click', (e) => {
+            const tab = e.target.closest('.work-tab');
+            if (tab) activateTab(tab);
+        });
+
+        workTabs.addEventListener('keydown', (e) => {
+            const tabs = Array.from(workTabs.querySelectorAll('.work-tab'));
+            const currentIndex = tabs.indexOf(document.activeElement);
+            if (currentIndex === -1) return;
+
+            let nextIndex;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                nextIndex = (currentIndex + 1) % tabs.length;
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            } else if (e.key === 'Home') {
+                nextIndex = 0;
+            } else if (e.key === 'End') {
+                nextIndex = tabs.length - 1;
+            } else {
+                return;
+            }
+
+            e.preventDefault();
+            tabs[nextIndex].focus();
+            activateTab(tabs[nextIndex]);
+        });
+    }
 });
