@@ -24,6 +24,15 @@
     scroll-behavior: smooth;
 }
 
+html {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -271,11 +280,14 @@ nav {
     display: flex;
     justify-content: center;
     perspective: 1000px;
+    min-width: 0;
 }
 
 .hero-image {
-    width: 350px;
-    height: 350px;
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 1 / 1;
+    height: auto;
     object-fit: cover;
     border-radius: 20px;
     position: relative;
@@ -795,6 +807,14 @@ button:focus-visible {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    .section-padding {
+        padding: 4rem 0;
+    }
+
     .nav-links {
         display: none; /* simple hide for now, could do burger menu */
     }
@@ -804,11 +824,23 @@ button:focus-visible {
     }
     
     .hero-text h1 {
-        font-size: 3rem;
+        font-size: clamp(2.25rem, 9vw, 3rem);
+    }
+
+    .hero-image {
+        max-width: 260px;
     }
 
     .hero-buttons {
         flex-wrap: wrap;
+    }
+
+    .timeline-item {
+        padding-left: 45px;
+    }
+
+    .timeline-content {
+        padding: 1.25rem;
     }
     
     .section-header h2 {
