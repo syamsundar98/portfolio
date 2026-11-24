@@ -501,6 +501,26 @@ nav {
     display: block;
 }
 
+.timeline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.timeline-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.timeline-meta-item i {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+}
+
 .timeline-content h3 {
     margin-bottom: 0.25rem;
 }
